@@ -1,0 +1,7 @@
+{
+  "name": "pi-planner-claude",
+  "description": "Pi-compatible planning workflow for Claude Code",
+  "author": {
+    "name": "Andres Araujo"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "description": "Pi planner hooks for Gemini CLI",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "pi-session-start",
+            "type": "command",
+            "command": "python3 ${extensionPath}${/}hooks-handlers${/}session-start.py"
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": "write_file|replace|replace_all",
+        "hooks": [
+          {
+            "name": "pi-pre-tool",
+            "type": "command",
+            "command": "python3 ${extensionPath}${/}hooks-handlers${/}before-tool.py"
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "write_file|replace|replace_all",
+        "hooks": [
+          {
+            "name": "pi-after-tool",
+            "type": "command",
+            "command": "python3 ${extensionPath}${/}hooks-handlers${/}after-tool.py"
+          }
+        ]
+      }
+    ]
+  }
+}

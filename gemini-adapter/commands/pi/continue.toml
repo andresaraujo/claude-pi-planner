@@ -1,0 +1,14 @@
+description = "Continue Pi plan implementation mode"
+prompt = """
+Resume Pi-compatible implementation mode.
+
+Steps:
+1. Choose feature from `{{args}}`; if empty, read `.gemini/pi-planner.local.md` active_feature.
+2. Validate `.pi-plans/<feature>/plan.md` exists.
+3. Read plan/todo/progress for the feature.
+4. Update `.gemini/pi-planner.local.md`:
+   - active_feature: feature
+   - planning_mode: false
+5. If todo exists, copy it into `.gemini/pi-planner.last-todo.md` for completion diffing.
+6. Summarize status and propose next concrete implementation task.
+"""

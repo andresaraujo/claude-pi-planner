@@ -1,0 +1,6 @@
+{
+  "name": "pi-planner-gemini",
+  "version": "0.1.0",
+  "description": "Pi-compatible planning workflow for Gemini CLI",
+  "contextFileName": "GEMINI.md"
+}

@@ -1,0 +1,16 @@
+description = "Start Pi-compatible planning mode"
+prompt = """
+Start Pi-compatible planning mode.
+
+Steps:
+1. If `{{args}}` exists, derive kebab-case feature name and use as active feature.
+2. Ensure `.gemini/` exists.
+3. Write `.gemini/pi-planner.local.md` with:
+   - active_feature
+   - planning_mode: true
+   - command_namespace: pi
+   - last_todo_hash: null
+4. If feature exists, ensure `.pi-plans/<feature>/` directory exists.
+5. Do not implement code yet.
+6. Ask clarifying questions and follow planning workflow before writing implementation code.
+"""

@@ -1,0 +1,14 @@
+description = "Add manual progress checkpoint"
+prompt = """
+Add a manual progress checkpoint.
+
+Steps:
+1. Read `.gemini/pi-planner.local.md` and get active_feature.
+2. If missing, ask user to run `/pi:continue <feature>` first.
+3. Ensure `.pi-plans/<active_feature>/progress.md` exists.
+4. Append checkpoint entry with date and these sections:
+   - What we did
+   - Key decisions
+   - Next steps
+5. Use `{{args}}` as checkpoint note when available.
+"""
