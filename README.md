@@ -12,7 +12,7 @@ Cross-agent planner package that mirrors `pi-planner` behavior for Claude Code a
 
 - `docs/` – parity matrix, contracts, command strategy, state schema
 - `shared-core/` – reusable parsing and progress automation helpers
-- `claude-adapter/` – Claude Code plugin assets (commands/skills/hooks)
+- `claude-adapter/` – Claude Code plugin assets (commands/skills; hooks intentionally disabled for stateless behavior)
 - `gemini-adapter/` – Gemini extension assets (commands/skills/hooks)
 - `tests/fixtures/` – markdown fixtures for parser edge cases
 
@@ -69,6 +69,9 @@ Shared artifacts are written to:
 
 ## Compatibility notes
 
-- Cross-agent compatibility target is the `.pi-plans` file format, not identical UI behavior.
+- Cross-agent compatibility target is the `.pi-plans` file format, not identical UI/runtime behavior.
+- Claude adapter is intentionally stateless: it does not create `.claude/pi-planner.local.md` or `.claude/pi-planner.last-todo.md`.
+- In Claude, when multiple feature plans exist, `/pi:continue` and `/pi:checkpoint` may ask which feature to use.
+- Claude updates `progress.md` manually alongside `todo.md`; Gemini retains hook-driven todo/progress automation.
 - Status-line parity with Pi is not supported in Claude/Gemini adapters.
 - Command aliasing (`/plan`, `/continue`, `/checkpoint`) is intentionally not enabled by default to avoid collisions.

@@ -4,20 +4,25 @@ argument-hint: [feature-name]
 allowed-tools: [Read, Write, Edit, MultiEdit, Bash]
 ---
 
-Start Pi-compatible planning mode.
+Start a Pi-compatible planning conversation.
+
+Rules:
+- Do not implement yet.
+- Do not create files until the user asks to create the plan.
 
 Steps:
-1. If `$ARGUMENTS` is provided, convert it to kebab-case and use it as the active feature.
-2. Ensure `.claude/` exists.
-3. Write `.claude/pi-planner.local.md` with frontmatter:
-   - `active_feature`: kebab-case feature or null
-   - `planning_mode`: true
-   - `command_namespace`: pi
-   - `last_todo_hash`: null
-4. If feature is set, ensure `.pi-plans/<feature>/` exists.
-5. Do not implement features yet.
-6. Immediately begin planning conversation by asking clarifying questions:
+1. If `$ARGUMENTS` is provided, treat it as the candidate feature name. Convert it to kebab-case only when writing files.
+2. Ask clarifying questions:
    - what problem are we solving?
    - what does success look like?
    - constraints/preferences?
    - what's out of scope?
+3. Research relevant code/docs if needed.
+4. Propose an approach, phases, trade-offs, and open questions.
+5. When the user asks to create the plan:
+   - derive or confirm the feature name
+   - write:
+     - `.pi-plans/<feature>/plan.md`
+     - `.pi-plans/<feature>/todo.md`
+     - `.pi-plans/<feature>/progress.md`
+6. Do not write any `.claude` local state or snapshot files.

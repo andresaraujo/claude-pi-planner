@@ -23,11 +23,19 @@ Alias enablement is adapter-specific and should be disabled by default for safet
 ## Behavioral expectations
 
 - `pi:plan [name]`
-  - enters planning mode
+  - starts a planning conversation
   - asks clarifying questions
-  - blocks implementation edits
+  - creates plan artifacts only when the user asks to save the plan
 - `pi:continue [name]`
   - loads `plan.md`, `todo.md`, `progress.md`
-  - switches to implementation mode
+  - if `name` is omitted, adapters may resolve it from local state or inspect `.pi-plans/`
+  - Claude asks the user to choose when multiple features exist
 - `pi:checkpoint [text]`
-  - appends manual checkpoint to `progress.md`
+  - appends a manual checkpoint to `progress.md`
+  - Claude may ask for a feature if multiple plans exist, or accept `<feature> <text>` when unambiguous
+
+## Adapter notes
+
+- Claude is intentionally stateless and does not persist runtime state under `.claude/`
+- Claude keeps `todo.md` and `progress.md` synchronized manually during implementation
+- Gemini retains hook-driven planning guards and todo/progress automation

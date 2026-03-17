@@ -2,14 +2,14 @@
 
 | Pi capability | Claude Code | Gemini CLI | Notes |
 |---|---|---|---|
-| Planning mode instructions injection | ✅ via SessionStart/BeforeAgent hooks + skill context | ✅ via SessionStart/BeforeAgent hooks + skill activation | Trigger style differs; same behavior target |
+| Planning mode instructions injection | ⚠️ command-driven only | ✅ via SessionStart/BeforeAgent hooks + skill activation | Claude is stateless and does not persist planning mode across hooks/sessions |
 | `/plan [name]` command | ✅ custom command | ✅ custom command (`.toml`) | Default namespaced command; optional alias |
-| `/continue [name]` command | ✅ custom command | ✅ custom command (`.toml`) | Loads plan/todo/progress into context |
-| `/checkpoint` command | ✅ custom command | ✅ custom command (`.toml`) | Appends checkpoint entry to `progress.md` |
-| Detect `plan.md` creation and switch modes | ✅ hook-driven state update | ✅ hook-driven state update | Adapter-specific event names |
-| Track newly completed todo tasks | ✅ hook + shared parser | ✅ hook + shared parser | Identity uses `phase + task` |
-| Auto append progress entries | ✅ hook + shared formatter | ✅ hook + shared formatter | Same markdown shape across adapters |
-| Planning-mode file change guard | ✅ BeforeTool deny policy | ✅ BeforeTool deny policy | Allow only plan artifacts creation when explicitly requested |
+| `/continue [name]` command | ✅ custom command | ✅ custom command (`.toml`) | Claude resolves feature from args or `.pi-plans/`; asks when ambiguous |
+| `/checkpoint` command | ✅ custom command | ✅ custom command (`.toml`) | Claude may ask for feature selection when multiple plans exist |
+| Detect `plan.md` creation and switch modes | ❌ | ✅ hook-driven state update | Claude has no persisted mode state |
+| Track newly completed todo tasks | ❌ | ✅ hook + shared parser | Claude updates progress manually |
+| Auto append progress entries | ❌ manual | ✅ hook + shared formatter | Same markdown shape where automated |
+| Planning-mode file change guard | ❌ | ✅ BeforeTool deny policy | Claude does not register planning guard hooks |
 | Status line indicator | ❌ | ❌ | Out of scope (platform specific UI) |
 
 ## Compatibility baseline
@@ -18,4 +18,5 @@
   - `.pi-plans/<feature>/plan.md`
   - `.pi-plans/<feature>/todo.md`
   - `.pi-plans/<feature>/progress.md`
-- Shared helper logic must produce identical outputs regardless of adapter.
+- Claude durable state lives only in shared `.pi-plans` artifacts.
+- Gemini additionally keeps adapter-local runtime state for convenience and automation.

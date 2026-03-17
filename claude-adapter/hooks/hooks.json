@@ -1,37 +1,4 @@
 {
-  "description": "Pi planner hooks for planning guardrails and progress automation",
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.py"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks-handlers/pre-tool.py"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks-handlers/post-tool.py"
-          }
-        ]
-      }
-    ]
-  }
+  "description": "Claude adapter is stateless; no hooks are registered.",
+  "hooks": {}
 }

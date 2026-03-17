@@ -1,8 +1,30 @@
 # State Schema
 
-State is adapter-local (not shared between CLIs), while `.pi-plans` artifacts remain shared.
+Runtime state is adapter-local and optional, while `.pi-plans` artifacts remain shared.
 
-## Canonical state object
+## Shared artifacts
+
+All adapters read and write:
+
+```text
+.pi-plans/<feature>/
+  plan.md
+  todo.md
+  progress.md
+```
+
+## Claude Code
+
+The Claude adapter is intentionally stateless.
+
+- No persisted local runtime state is written under `.claude/`
+- Feature resolution comes from command arguments and `.pi-plans/` directory inspection
+- Planning mode is command-instruction driven, not persisted between hook invocations
+- Todo completion diffing and auto-progress updates are not used
+
+## Gemini CLI
+
+Gemini currently persists the canonical runtime state object:
 
 ```json
 {
@@ -19,8 +41,6 @@ State is adapter-local (not shared between CLIs), while `.pi-plans` artifacts re
 
 ## Notes
 
-- Keep state in adapter-native files:
-  - Claude: `.claude/pi-planner.local.md` (or equivalent adapter config storage)
-  - Gemini: workspace/user settings or extension-local state file
-- Do not write shared runtime state into `.pi-plans`.
-- `lastTodoSnapshot` is used only for new-completion detection optimization.
+- Keep persisted runtime state in adapter-native storage only
+- Do not write shared runtime state into `.pi-plans`
+- Gemini's `lastTodoSnapshot` is used only for new-completion detection optimization

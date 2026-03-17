@@ -224,4 +224,4 @@ Considered in-memory limiting but rejected - won't work with multiple server ins
 If the user wants to modify the plan after creation:
 1. Discuss the changes
 2. Update `.pi-plans/<feature-name>/plan.md` with the changes
-3. Remind user to run `/todo` to regenerate the todo list
+3. Update `.pi-plans/<feature-name>/todo.md` to match the revised phases
